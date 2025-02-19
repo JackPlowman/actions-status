@@ -34,3 +34,15 @@ git_hooks:
   - any:
       - changed-files:
           - any-glob-to-any-file: ["githooks/**"]
+typescript:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ["*.ts", "**/*.ts", "*.tsx", "**/*.tsx"]
+tests:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ["tests/**"]
+dashboard:
+  - any:
+      - changed-files:
+          - any-glob-to-any-file: ["dashboard/**"]
