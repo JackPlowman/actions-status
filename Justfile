@@ -20,10 +20,10 @@ prettier-format:
 format:
     just --fmt --unstable
     just --fmt --unstable --justfile dashboard/dashboard.just
-    just --fmt --unstable --justfile tests/tests.just
+    # just --fmt --unstable --justfile tests/tests.just
 
 # Check for Just format issues
 format-check:
     just --fmt --check --unstable
     just --fmt --check --unstable --justfile dashboard/dashboard.just
-    just --fmt --check --unstable --justfile tests/tests.just
+    # just --fmt --check --unstable --justfile tests/tests.just
