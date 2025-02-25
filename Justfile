@@ -28,7 +28,6 @@ format-check:
     just --fmt --check --unstable --justfile dashboard/dashboard.just
     # just --fmt --check --unstable --justfile tests/tests.just
 
-
 # ------------------------------------------------------------------------------
 # gitleaks
 # ------------------------------------------------------------------------------
