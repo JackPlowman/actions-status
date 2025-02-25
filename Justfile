@@ -1,16 +1,16 @@
 mod dashboard 'dashboard/dashboard.just'
 
 # ------------------------------------------------------------------------------
-# Prettier
+# Prettier - File Formatting
 # ------------------------------------------------------------------------------
 
-# Check if code is formatted correctly
+# Check for prettier issues
 prettier-check:
-    npx prettier . --check
+    prettier . --check
 
-# Format code with Prettier
+# Fix prettier issues
 prettier-format:
-    npx prettier . --check --write
+    prettier . --check --write
 
 # ------------------------------------------------------------------------------
 # Justfile
@@ -27,3 +27,20 @@ format-check:
     just --fmt --check --unstable
     just --fmt --check --unstable --justfile dashboard/dashboard.just
     # just --fmt --check --unstable --justfile tests/tests.just
+
+# ------------------------------------------------------------------------------
+# gitleaks
+# ------------------------------------------------------------------------------
+
+gitleaks-detect:
+    gitleaks detect --source . > /dev/null
+
+# ------------------------------------------------------------------------------
+# Git Hooks
+# ------------------------------------------------------------------------------
+
+# Install pre commit hook to run on all commits
+install-git-hooks:
+    cp -f githooks/pre-commit .git/hooks/pre-commit
+    cp -f githooks/post-commit .git/hooks/post-commit
+    chmod ug+x .git/hooks/*
