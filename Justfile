@@ -19,10 +19,14 @@ prettier-format:
 # Format Justfile
 format:
     just --fmt --unstable
+    just --fmt --unstable --justfile dashboard/dashboard.just
+    # just --fmt --unstable --justfile tests/tests.just
 
 # Check Justfile formatting
 format-check:
     just --fmt --check --unstable
+    just --fmt --check --unstable --justfile dashboard/dashboard.just
+    # just --fmt --check --unstable --justfile tests/tests.just
 
 # ------------------------------------------------------------------------------
 # Gitleaks
