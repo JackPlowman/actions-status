@@ -3,6 +3,8 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    commit-message:
+      prefix: "deps(github-actions)"
     schedule:
       interval: "cron"
       cronjob: "30 7 * * *"
