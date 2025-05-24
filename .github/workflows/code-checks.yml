@@ -70,6 +70,6 @@ jobs:
     strategy:
       matrix:
         language: [actions, typescript]
-    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@main
+    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@75ceb782a5815a98162de1321c852df74830a493 # v2025.05.24.01
     with:
       language: ${{ matrix.language }}
