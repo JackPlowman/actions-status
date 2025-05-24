@@ -62,6 +62,18 @@ jobs:
     secrets:
       workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
 
+  codeql-checks:
+    name: CodeQL Analysis
+    permissions:
+      contents: read
+      security-events: write
+    strategy:
+      matrix:
+        language: [actions, typescript]
+    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@main
+    with:
+      language: ${{ matrix.language }}
+
   run-codeql-analysis:
     name: CodeQL Analysis
     runs-on: ubuntu-latest
