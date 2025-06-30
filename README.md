@@ -1,8 +1,8 @@
-# Repository Name
+# Actions Status
 
 ## Table of Contents
 
-- [Repository Name](#repository-name)
+- [Actions Status](#actions-status)
   - [Table of Contents](#table-of-contents)
   - [Contributing](#contributing)
 
