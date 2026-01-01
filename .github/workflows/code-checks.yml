@@ -16,17 +16,6 @@ env:
   FORCE_COLOR: 1
 
 jobs:
-  common-code-checks:
-    name: Common Code Checks
-    permissions:
-      contents: read
-      actions: read
-      pull-requests: write
-      security-events: write
-    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@61df2c978dadbc17ea3f190f703531f0dcce6db5 # v2025.12.30.04
-    secrets:
-      workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
-
   codeql-checks:
     name: CodeQL Analysis
     permissions:
@@ -38,3 +27,14 @@ jobs:
     uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@61df2c978dadbc17ea3f190f703531f0dcce6db5 # v2025.12.30.04
     with:
       language: ${{ matrix.language }}
+
+  common-code-checks:
+    name: Common Code Checks
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+      security-events: write
+    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@61df2c978dadbc17ea3f190f703531f0dcce6db5 # v2025.12.30.04
+    secrets:
+      workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
