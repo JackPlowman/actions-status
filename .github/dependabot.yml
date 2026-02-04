@@ -3,8 +3,8 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directories:
-    - "/"
-    - ".github/actions/setup-dashboard-dependencies"
+      - "/"
+      - ".github/actions/setup-dashboard-dependencies"
     commit-message:
       prefix: "deps(github-actions)"
     schedule:
