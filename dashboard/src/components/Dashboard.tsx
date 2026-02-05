@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { TokenInput } from "./TokenInput";
+
 import { useUserRepos } from "../hooks/useGithubData";
 import { RepoCard } from "./RepoCard";
+import { TokenInput } from "./TokenInput";
 
 export const Dashboard: React.FC = () => {
   const [token, setToken] = useState("");
@@ -9,9 +10,9 @@ export const Dashboard: React.FC = () => {
   const { data: repos, isLoading, error } = useUserRepos(token);
 
   return (
-    <div className="container mx-auto p-4 max-w-6xl">
+    <div className="container mx-auto max-w-6xl p-4">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">
+        <h1 className="mb-2 text-3xl font-bold text-white">
           GitHub Actions Dashboard
         </h1>
         <p className="text-gray-400">
@@ -22,25 +23,25 @@ export const Dashboard: React.FC = () => {
       <TokenInput onTokenSubmit={setToken} />
 
       {isLoading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="bg-gray-800 h-32 rounded-xl animate-pulse"
+              className="h-32 animate-pulse rounded-xl bg-gray-800"
             ></div>
           ))}
         </div>
       )}
 
       {error && (
-        <div className="text-red-500 bg-red-900/10 p-4 rounded-lg border border-red-800">
+        <div className="rounded-lg border border-red-800 bg-red-900/10 p-4 text-red-500">
           Error loading repositories: {(error as Error).message}
         </div>
       )}
 
       {/* Grid of Repos */}
       {repos && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {repos.map((repo: any) => (
             <RepoCard
               key={repo.id}

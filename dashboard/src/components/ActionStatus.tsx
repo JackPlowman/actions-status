@@ -1,4 +1,5 @@
 import React from "react";
+
 import type { WorkflowRun } from "../api/github";
 
 interface ActionStatusProps {
@@ -19,10 +20,10 @@ export const ActionStatus: React.FC<ActionStatusProps> = ({ run }) => {
   const date = new Date(run.created_at).toLocaleString();
 
   return (
-    <div className="flex items-center justify-between p-2 border-b border-gray-700 last:border-0 hover:bg-gray-700/50 transition">
+    <div className="flex items-center justify-between border-b border-gray-700 p-2 transition last:border-0 hover:bg-gray-700/50">
       <div className="flex items-center gap-3">
         <div
-          className={`w-3 h-3 rounded-full ${colorClass}`}
+          className={`h-3 w-3 rounded-full ${colorClass}`}
           title={`${run.status} - ${run.conclusion}`}
         />
         <div className="flex flex-col">
@@ -30,14 +31,14 @@ export const ActionStatus: React.FC<ActionStatusProps> = ({ run }) => {
             href={run.html_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 font-medium text-sm"
+            className="text-sm font-medium text-blue-400 hover:text-blue-300"
           >
             {run.name}
           </a>
-          <span className="text-gray-400 text-xs">{run.head_branch}</span>
+          <span className="text-xs text-gray-400">{run.head_branch}</span>
         </div>
       </div>
-      <div className="text-gray-500 text-xs text-right">
+      <div className="text-right text-xs text-gray-500">
         <div>{date}</div>
         <div>#{run.id}</div>
       </div>

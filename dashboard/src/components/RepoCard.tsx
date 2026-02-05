@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useRepoWorkflows } from "../hooks/useGithubData";
 import { ActionStatus } from "./ActionStatus";
 
@@ -22,10 +23,10 @@ export const RepoCard: React.FC<RepoCardProps> = ({
   } = useRepoWorkflows(token, owner, repo, defaultBranch);
 
   if (isLoading)
-    return <div className="p-4 bg-gray-800 rounded animate-pulse h-32"></div>;
+    return <div className="h-32 animate-pulse rounded bg-gray-800 p-4"></div>;
   if (error)
     return (
-      <div className="p-4 bg-red-900/20 text-red-300 rounded border border-red-800">
+      <div className="rounded border border-red-800 bg-red-900/20 p-4 text-red-300">
         Error loading {repo}
       </div>
     );
@@ -52,12 +53,12 @@ export const RepoCard: React.FC<RepoCardProps> = ({
   if (uniqueWorkflows.length === 0) return null;
 
   return (
-    <div className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 overflow-hidden flex flex-col">
-      <div className="p-4 bg-gray-900/50 border-b border-gray-700 flex justify-between items-center">
-        <h3 className="font-bold text-lg text-white truncate" title={repo}>
+    <div className="flex flex-col overflow-hidden rounded-xl border border-gray-700 bg-gray-800 shadow-lg">
+      <div className="flex items-center justify-between border-b border-gray-700 bg-gray-900/50 p-4">
+        <h3 className="truncate text-lg font-bold text-white" title={repo}>
           {repo}
         </h3>
-        <span className="text-xs text-gray-500 bg-gray-800 px-2 py-1 rounded">
+        <span className="rounded bg-gray-800 px-2 py-1 text-xs text-gray-500">
           {defaultBranch}
         </span>
       </div>
