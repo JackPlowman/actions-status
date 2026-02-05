@@ -7,57 +7,91 @@ import { TokenInput } from "./TokenInput";
 
 export const Dashboard: React.FC = () => {
   const [token, setToken] = useState("");
-
   const { data: repos, isLoading, error } = useUserRepos(token);
 
   return (
-    <div className="container mx-auto max-w-6xl p-4">
-      <header className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold text-white">
-          GitHub Actions Dashboard
-        </h1>
-        <p className="text-gray-400">
-          View statuses of your workflows on default branches
-        </p>
-      </header>
-
-      <TokenInput onTokenSubmit={setToken} />
-
-      {isLoading && (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className="h-32 animate-pulse rounded-xl bg-gray-800"
-            ></div>
-          ))}
+    <div>
+      <div style={{ margin: "0 auto", maxWidth: 600 }}>
+        <h2
+          style={{
+            fontWeight: 600,
+            fontSize: 28,
+            margin: "2rem 0 1rem 0",
+            textAlign: "center",
+          }}
+        >
+          Repository Status
+        </h2>
+        <div style={{ marginBottom: 24 }}>
+          <TokenInput onTokenSubmit={setToken} />
         </div>
-      )}
 
-      {error && (
-        <div className="rounded-lg border border-red-800 bg-red-900/10 p-4 text-red-500">
-          Error loading repositories: {(error as Error).message}
-        </div>
-      )}
+        {isLoading && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {[...Array(5)].map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  height: 48,
+                  borderRadius: 8,
+                  background: "var(--card-bg)",
+                  border: `1px solid var(--border)`,
+                  opacity: 0.5,
+                }}
+              />
+            ))}
+          </div>
+        )}
 
-      {/* Grid of Repos */}
-      {repos && (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {repos.map((repo: Repo) => (
-            <RepoCard
-              key={repo.id}
-              token={token}
-              owner={repo.owner.login}
-              repo={repo.name}
-              defaultBranch={repo.default_branch}
-            />
-          ))}
-        </div>
-      )}
+        {error && (
+          <div
+            style={{
+              border: "1px solid #d1242f",
+              background: "#fff0f1",
+              color: "#d1242f",
+              borderRadius: 8,
+              padding: 16,
+              textAlign: "center",
+              marginBottom: 16,
+            }}
+          >
+            <p style={{ fontWeight: 500 }}>Unable to load repositories</p>
+            <p style={{ fontSize: 14, opacity: 0.8 }}>
+              {(error as Error).message}
+            </p>
+          </div>
+        )}
 
-      {repos && repos.length === 0 && (
-        <p className="text-gray-400">No repositories found.</p>
-      )}
+        {repos && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {repos.map((repo: Repo) => (
+              <RepoCard
+                key={repo.id}
+                token={token}
+                owner={repo.owner.login}
+                repo={repo.name}
+                defaultBranch={repo.default_branch}
+                htmlUrl={repo.html_url}
+              />
+            ))}
+          </div>
+        )}
+
+        {repos && repos.length === 0 && (
+          <div
+            style={{
+              border: `1px solid var(--border)`,
+              background: "var(--card-bg)",
+              color: "var(--muted)",
+              borderRadius: 8,
+              padding: 32,
+              textAlign: "center",
+            }}
+          >
+            No repositories found with workflows.
+          </div>
+        )}
+      </div>
     </div>
   );
 };

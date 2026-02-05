@@ -10,11 +10,8 @@ export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
   );
 
   useEffect(() => {
-    // Sync initial token to parent if it exists
     const storedToken = localStorage.getItem("github_token");
-    if (storedToken) {
-      onTokenSubmit(storedToken);
-    }
+    if (storedToken) onTokenSubmit(storedToken);
   }, [onTokenSubmit]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +21,6 @@ export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
       onTokenSubmit(token);
     }
   };
-
   const handleClear = () => {
     localStorage.removeItem("github_token");
     setToken("");
@@ -32,39 +28,71 @@ export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
   };
 
   return (
-    <div className="mb-6 rounded-lg bg-gray-800 p-4 shadow-md">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <label htmlFor="token" className="font-medium text-white">
-          GitHub Personal Access Token
-        </label>
-        <div className="flex gap-2">
-          <input
-            type="password"
-            id="token"
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            className="flex-1 rounded border border-gray-600 bg-gray-700 p-2 text-white focus:border-blue-500 focus:outline-none"
-            placeholder="ghp_..."
-          />
-          <button
-            type="submit"
-            className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            onClick={handleClear}
-            className="rounded bg-red-600 px-4 py-2 text-white transition hover:bg-red-700"
-          >
-            Clear
-          </button>
-        </div>
-        <p className="text-sm text-gray-400">
-          Token requires <code>repo</code> scope to access private repositories
-          and workflow status.
-        </p>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      style={{ display: "flex", flexDirection: "column", gap: 8 }}
+    >
+      <label
+        htmlFor="token"
+        style={{ fontWeight: 500, fontSize: 15, marginBottom: 2 }}
+      >
+        GitHub Personal Access Token
+      </label>
+      <div style={{ display: "flex", gap: 8 }}>
+        <input
+          type="password"
+          id="token"
+          value={token}
+          onChange={(e) => setToken(e.target.value)}
+          style={{
+            flex: 1,
+            border: `1px solid var(--border)`,
+            borderRadius: 6,
+            padding: "8px 12px",
+            fontSize: 15,
+            background: "var(--card-bg)",
+            color: "var(--fg)",
+          }}
+          placeholder="ghp_..."
+        />
+        <button
+          type="submit"
+          style={{
+            borderRadius: 6,
+            background: "#218bff",
+            color: "#fff",
+            padding: "8px 16px",
+            fontWeight: 500,
+            fontSize: 15,
+            border: "none",
+            cursor: "pointer",
+            transition: "background 0.15s",
+          }}
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          onClick={handleClear}
+          style={{
+            borderRadius: 6,
+            background: "#e53e3e",
+            color: "#fff",
+            padding: "8px 16px",
+            fontWeight: 500,
+            fontSize: 15,
+            border: "none",
+            cursor: "pointer",
+            transition: "background 0.15s",
+          }}
+        >
+          Clear
+        </button>
+      </div>
+      <p style={{ fontSize: 13, color: "var(--muted)", marginTop: 2 }}>
+        Token requires <code>repo</code> scope to access private repositories
+        and workflow status.
+      </p>
+    </form>
   );
 };
