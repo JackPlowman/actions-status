@@ -18,6 +18,10 @@ dev:
 build:
     npm run build
 
+# Run unit tests
+test:
+    npm run test
+
 # Lint typescript code with ESLint
 lint:
     npx eslint .
