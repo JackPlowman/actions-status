@@ -81,3 +81,17 @@ jobs:
         uses: ./.github/actions/setup-dashboard-dependencies
       - name: Run Prettier
         run: just dashboard::prettier-check
+
+  run-typescript-unit-tests:
+    name: Run TypeScript Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Dashboard Dependencies
+        uses: ./.github/actions/setup-dashboard-dependencies
+      - name: Run Prettier
+        run: just dashboard::unit-test

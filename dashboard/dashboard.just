@@ -19,8 +19,12 @@ build:
     npm run build
 
 # Run unit tests
-test:
+unit-test:
     npm run test
+
+# Run unit tests in watch mode
+unit-test-watch:
+    npm run test:watch
 
 # Lint typescript code with ESLint
 lint:
