@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import type { Repo } from "../api/github";
 
+import type { Repo } from "../api/github";
 import { useUserRepos } from "../hooks/useGithubData";
 import { RepoCard } from "./RepoCard";
 import { TokenInput } from "./TokenInput";

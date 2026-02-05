@@ -5,7 +5,9 @@ interface TokenInputProps {
 }
 
 export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
-  const [token, setToken] = useState(() => localStorage.getItem("github_token") || "");
+  const [token, setToken] = useState(
+    () => localStorage.getItem("github_token") || "",
+  );
 
   useEffect(() => {
     // Sync initial token to parent if it exists
