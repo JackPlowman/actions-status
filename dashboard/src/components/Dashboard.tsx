@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 
 import type { Repo } from "../api/github";
 import { useUserRepos } from "../hooks/useGithubData";
@@ -13,10 +13,10 @@ export const Dashboard: React.FC = () => {
 
   const sortedRepos = useMemo(() => {
     if (!repos) return [];
-    
+
     // Step 1: Filter archived (as requested previously)
     let filtered = repos.filter((repo: Repo) => !repo.archived);
-    
+
     // Step 2: Sort
     if (sortBy === "alpha") {
       filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
@@ -27,18 +27,18 @@ export const Dashboard: React.FC = () => {
         success: 2,
         neutral: 3,
       };
-      
+
       filtered = [...filtered].sort((a, b) => {
         const statusA = statusOrder[repoStatuses[a.id] || "neutral"];
         const statusB = statusOrder[repoStatuses[b.id] || "neutral"];
-        
+
         if (statusA !== statusB) {
           return statusA - statusB;
         }
         return a.name.localeCompare(b.name);
       });
     }
-    
+
     return filtered;
   }, [repos, sortBy, repoStatuses]);
 
@@ -61,29 +61,33 @@ export const Dashboard: React.FC = () => {
         >
           Repository Status
         </h2>
-        
+
         <div style={{ marginBottom: 24 }}>
           <TokenInput onTokenSubmit={setToken} />
         </div>
 
         {repos && repos.length > 0 && (
-          <div style={{ 
-            display: "flex", 
-            justifyContent: "flex-end", 
-            marginBottom: 16,
-            alignItems: "center",
-            gap: 12,
-            fontSize: 13,
-            color: "var(--muted)"
-          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginBottom: 16,
+              alignItems: "center",
+              gap: 12,
+              fontSize: 13,
+              color: "var(--muted)",
+            }}
+          >
             <span style={{ fontWeight: 500 }}>Sort by:</span>
-            <div style={{ 
-              display: "flex", 
-              background: "var(--header-bg)", 
-              padding: 2, 
-              borderRadius: 6,
-              border: "1px solid var(--border)"
-            }}>
+            <div
+              style={{
+                display: "flex",
+                background: "var(--header-bg)",
+                padding: 2,
+                borderRadius: 6,
+                border: "1px solid var(--border)",
+              }}
+            >
               <button
                 onClick={() => setSortBy("alpha")}
                 style={{
@@ -95,8 +99,9 @@ export const Dashboard: React.FC = () => {
                   cursor: "pointer",
                   background: sortBy === "alpha" ? "var(--bg)" : "transparent",
                   color: sortBy === "alpha" ? "var(--fg)" : "var(--muted)",
-                  boxShadow: sortBy === "alpha" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
-                  transition: "all 0.15s"
+                  boxShadow:
+                    sortBy === "alpha" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
+                  transition: "all 0.15s",
                 }}
               >
                 Name
@@ -112,8 +117,9 @@ export const Dashboard: React.FC = () => {
                   cursor: "pointer",
                   background: sortBy === "status" ? "var(--bg)" : "transparent",
                   color: sortBy === "status" ? "var(--fg)" : "var(--muted)",
-                  boxShadow: sortBy === "status" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
-                  transition: "all 0.15s"
+                  boxShadow:
+                    sortBy === "status" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
+                  transition: "all 0.15s",
                 }}
               >
                 Status
