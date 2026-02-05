@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 
 import type { Repo } from "../api/github";
 import { useUserRepos } from "../hooks/useGithubData";
@@ -67,23 +67,27 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {repos && repos.length > 0 && (
-          <div style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginBottom: 16,
-            alignItems: "center",
-            gap: 12,
-            fontSize: 13,
-            color: "var(--muted)"
-          }}>
-            <span style={{ fontWeight: 500 }}>Sort by:</span>
-            <div style={{
+          <div
+            style={{
               display: "flex",
-              background: "var(--header-bg)",
-              padding: 2,
-              borderRadius: 6,
-              border: "1px solid var(--border)"
-            }}>
+              justifyContent: "flex-end",
+              marginBottom: 16,
+              alignItems: "center",
+              gap: 12,
+              fontSize: 13,
+              color: "var(--muted)",
+            }}
+          >
+            <span style={{ fontWeight: 500 }}>Sort by:</span>
+            <div
+              style={{
+                display: "flex",
+                background: "var(--header-bg)",
+                padding: 2,
+                borderRadius: 6,
+                border: "1px solid var(--border)",
+              }}
+            >
               <button
                 onClick={() => setSortBy("alpha")}
                 style={{
@@ -95,8 +99,9 @@ export const Dashboard: React.FC = () => {
                   cursor: "pointer",
                   background: sortBy === "alpha" ? "var(--bg)" : "transparent",
                   color: sortBy === "alpha" ? "var(--fg)" : "var(--muted)",
-                  boxShadow: sortBy === "alpha" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
-                  transition: "all 0.15s"
+                  boxShadow:
+                    sortBy === "alpha" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
+                  transition: "all 0.15s",
                 }}
               >
                 Name
@@ -112,8 +117,9 @@ export const Dashboard: React.FC = () => {
                   cursor: "pointer",
                   background: sortBy === "status" ? "var(--bg)" : "transparent",
                   color: sortBy === "status" ? "var(--fg)" : "var(--muted)",
-                  boxShadow: sortBy === "status" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
-                  transition: "all 0.15s"
+                  boxShadow:
+                    sortBy === "status" ? "0 1px 2px rgba(0,0,0,0.05)" : "none",
+                  transition: "all 0.15s",
                 }}
               >
                 Status
