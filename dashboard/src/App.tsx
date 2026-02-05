@@ -1,9 +1,9 @@
 import React from "react";
 
 import "./App.css";
+import { ThemeProvider, ThemeToggle } from "./ThemeContext";
 import { Dashboard } from "./components/Dashboard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider, ThemeToggle } from "./ThemeContext";
 
 const queryClient = new QueryClient();
 
