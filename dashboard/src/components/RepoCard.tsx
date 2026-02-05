@@ -8,6 +8,7 @@ interface RepoCardProps {
   repo: string;
   defaultBranch: string;
   htmlUrl: string;
+  onStatusUpdate?: (status: string) => void;
 }
 
 export const RepoCard: React.FC<RepoCardProps> = ({
@@ -16,6 +17,7 @@ export const RepoCard: React.FC<RepoCardProps> = ({
   repo,
   defaultBranch,
   htmlUrl,
+  onStatusUpdate,
 }) => {
   const {
     data: workflows,
@@ -43,6 +45,12 @@ export const RepoCard: React.FC<RepoCardProps> = ({
     if (hasInProgress) return "pending";
     return "success";
   }, [workflows]);
+
+  React.useEffect(() => {
+    if (!isLoading && !error && onStatusUpdate) {
+      onStatusUpdate(status);
+    }
+  }, [status, isLoading, error, onStatusUpdate]);
 
   if (isLoading) {
     return (

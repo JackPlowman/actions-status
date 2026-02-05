@@ -29,6 +29,10 @@ function App() {
               position: "sticky",
               top: 0,
               zIndex: 10,
+              borderRadius: 8,
+              margin: "0 auto 1.5rem auto",
+              maxWidth: 600,
+              boxShadow: "0 1px 4px 0 rgba(0,0,0,0.03)",
             }}
           >
             <span style={{ fontWeight: 700, fontSize: 24, letterSpacing: 0.5 }}>
