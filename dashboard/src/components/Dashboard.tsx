@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import type { Repo } from "../api/github";
 
 import { useUserRepos } from "../hooks/useGithubData";
 import { RepoCard } from "./RepoCard";
@@ -42,7 +43,7 @@ export const Dashboard: React.FC = () => {
       {/* Grid of Repos */}
       {repos && (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {repos.map((repo: any) => (
+          {repos.map((repo: Repo) => (
             <RepoCard
               key={repo.id}
               token={token}
