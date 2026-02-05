@@ -5,7 +5,9 @@ interface TokenInputProps {
 }
 
 export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
-  const [token, setToken] = useState(() => localStorage.getItem("github_token") || "");
+  const [token, setToken] = useState(
+    () => localStorage.getItem("github_token") || "",
+  );
 
   useEffect(() => {
     const storedToken = localStorage.getItem("github_token");
@@ -26,8 +28,14 @@ export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-      <label htmlFor="token" style={{ fontWeight: 500, fontSize: 15, marginBottom: 2 }}>
+    <form
+      onSubmit={handleSubmit}
+      style={{ display: "flex", flexDirection: "column", gap: 8 }}
+    >
+      <label
+        htmlFor="token"
+        style={{ fontWeight: 500, fontSize: 15, marginBottom: 2 }}
+      >
         GitHub Personal Access Token
       </label>
       <div style={{ display: "flex", gap: 8 }}>
@@ -82,7 +90,8 @@ export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
         </button>
       </div>
       <p style={{ fontSize: 13, color: "var(--muted)", marginTop: 2 }}>
-        Token requires <code>repo</code> scope to access private repositories and workflow status.
+        Token requires <code>repo</code> scope to access private repositories
+        and workflow status.
       </p>
     </form>
   );
