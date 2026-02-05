@@ -64,16 +64,18 @@ export const Dashboard: React.FC = () => {
 
         {repos && (
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {repos.map((repo: Repo) => (
-              <RepoCard
-                key={repo.id}
-                token={token}
-                owner={repo.owner.login}
-                repo={repo.name}
-                defaultBranch={repo.default_branch}
-                htmlUrl={repo.html_url}
-              />
-            ))}
+            {repos
+              .filter((repo: Repo) => !repo.archived)
+              .map((repo: Repo) => (
+                <RepoCard
+                  key={repo.id}
+                  token={token}
+                  owner={repo.owner.login}
+                  repo={repo.name}
+                  defaultBranch={repo.default_branch}
+                  htmlUrl={repo.html_url}
+                />
+              ))}
           </div>
         )}
 
