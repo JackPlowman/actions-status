@@ -22,6 +22,17 @@ export interface WorkflowRun {
   created_at: string;
 }
 
+export interface Repo {
+  id: number;
+  name: string;
+  full_name: string;
+  owner: {
+    login: string;
+  };
+  default_branch: string;
+  html_url: string;
+}
+
 export const fetchWorkflowRuns = async (
   token: string,
   owner: string,

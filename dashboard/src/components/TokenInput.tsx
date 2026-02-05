@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface TokenInputProps {
   onTokenSubmit: (token: string) => void;
 }
 
 export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(
+    () => localStorage.getItem("github_token") || "",
+  );
 
   useEffect(() => {
+    // Sync initial token to parent if it exists
     const storedToken = localStorage.getItem("github_token");
     if (storedToken) {
-      setToken(storedToken);
       onTokenSubmit(storedToken);
     }
   }, [onTokenSubmit]);
@@ -30,9 +32,9 @@ export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 rounded-lg shadow-md mb-6">
+    <div className="mb-6 rounded-lg bg-gray-800 p-4 shadow-md">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <label htmlFor="token" className="text-white font-medium">
+        <label htmlFor="token" className="font-medium text-white">
           GitHub Personal Access Token
         </label>
         <div className="flex gap-2">
@@ -41,24 +43,24 @@ export const TokenInput: React.FC<TokenInputProps> = ({ onTokenSubmit }) => {
             id="token"
             value={token}
             onChange={(e) => setToken(e.target.value)}
-            className="flex-1 p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-blue-500"
+            className="flex-1 rounded border border-gray-600 bg-gray-700 p-2 text-white focus:border-blue-500 focus:outline-none"
             placeholder="ghp_..."
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
           >
             Save
           </button>
           <button
             type="button"
             onClick={handleClear}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+            className="rounded bg-red-600 px-4 py-2 text-white transition hover:bg-red-700"
           >
             Clear
           </button>
         </div>
-        <p className="text-gray-400 text-sm">
+        <p className="text-sm text-gray-400">
           Token requires <code>repo</code> scope to access private repositories
           and workflow status.
         </p>

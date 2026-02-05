@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
-import { ActionStatus } from "../ActionStatus";
+import { describe, expect, it } from "vitest";
+
 import type { WorkflowRun } from "../../api/github";
-import { describe, it, expect } from "vitest";
+import { ActionStatus } from "../ActionStatus";
+import { render, screen } from "@testing-library/react";
 
 const mockRun: WorkflowRun = {
   id: 123,

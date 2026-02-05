@@ -1,5 +1,5 @@
+import { fetchUserRepos, fetchWorkflowRuns } from "../api/github";
 import { useQuery } from "@tanstack/react-query";
-import { fetchWorkflowRuns, fetchUserRepos } from "../api/github";
 
 export const useUserRepos = (token: string) => {
   return useQuery({
