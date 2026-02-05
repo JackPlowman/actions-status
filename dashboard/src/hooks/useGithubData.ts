@@ -10,7 +10,12 @@ export const useUserRepos = (token: string) => {
   });
 };
 
-export const useRepoWorkflows = (token: string, owner: string, repo: string, branch: string = "main") => {
+export const useRepoWorkflows = (
+  token: string,
+  owner: string,
+  repo: string,
+  branch: string = "main",
+) => {
   // Try fetching main, if it fails or returns empty, maybe try master?
   // For now, let's just stick to the requested main/master (default) branch logic.
   // The API allows filtering by branch.

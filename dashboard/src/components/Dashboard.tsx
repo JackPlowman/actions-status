@@ -11,8 +11,12 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="container mx-auto p-4 max-w-6xl">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">GitHub Actions Dashboard</h1>
-        <p className="text-gray-400">View statuses of your workflows on default branches</p>
+        <h1 className="text-3xl font-bold text-white mb-2">
+          GitHub Actions Dashboard
+        </h1>
+        <p className="text-gray-400">
+          View statuses of your workflows on default branches
+        </p>
       </header>
 
       <TokenInput onTokenSubmit={setToken} />
@@ -20,7 +24,10 @@ export const Dashboard: React.FC = () => {
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
-             <div key={i} className="bg-gray-800 h-32 rounded-xl animate-pulse"></div>
+            <div
+              key={i}
+              className="bg-gray-800 h-32 rounded-xl animate-pulse"
+            ></div>
           ))}
         </div>
       )}
@@ -47,7 +54,7 @@ export const Dashboard: React.FC = () => {
       )}
 
       {repos && repos.length === 0 && (
-          <p className="text-gray-400">No repositories found.</p>
+        <p className="text-gray-400">No repositories found.</p>
       )}
     </div>
   );

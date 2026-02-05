@@ -22,7 +22,12 @@ export interface WorkflowRun {
   created_at: string;
 }
 
-export const fetchWorkflowRuns = async (token: string, owner: string, repo: string, branch: string = "main") => {
+export const fetchWorkflowRuns = async (
+  token: string,
+  owner: string,
+  repo: string,
+  branch: string = "main",
+) => {
   const octokit = createOctokit(token);
   const { data } = await octokit.actions.listWorkflowRunsForRepo({
     owner,

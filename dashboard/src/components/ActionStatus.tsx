@@ -8,7 +8,8 @@ interface ActionStatusProps {
 const getStatusColor = (conclusion: string | null, status: string | null) => {
   if (status === "queued" || status === "in_progress") return "bg-yellow-500";
   if (conclusion === "success") return "bg-green-500";
-  if (conclusion === "failure" || conclusion === "timed_out") return "bg-red-500";
+  if (conclusion === "failure" || conclusion === "timed_out")
+    return "bg-red-500";
   if (conclusion === "cancelled") return "bg-gray-500";
   return "bg-gray-500";
 };
@@ -20,7 +21,10 @@ export const ActionStatus: React.FC<ActionStatusProps> = ({ run }) => {
   return (
     <div className="flex items-center justify-between p-2 border-b border-gray-700 last:border-0 hover:bg-gray-700/50 transition">
       <div className="flex items-center gap-3">
-        <div className={`w-3 h-3 rounded-full ${colorClass}`} title={`${run.status} - ${run.conclusion}`} />
+        <div
+          className={`w-3 h-3 rounded-full ${colorClass}`}
+          title={`${run.status} - ${run.conclusion}`}
+        />
         <div className="flex flex-col">
           <a
             href={run.html_url}
