@@ -130,9 +130,9 @@ export const Dashboard: React.FC = () => {
 
         {isLoading && (
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {[...Array(5)].map((_, i) => (
+            {Array.from({ length: 5 }, (_, i) => (
               <div
-                key={i}
+                key={`skeleton-${i}`}
                 style={{
                   height: 48,
                   borderRadius: 8,
@@ -159,7 +159,7 @@ export const Dashboard: React.FC = () => {
           >
             <p style={{ fontWeight: 500 }}>Unable to load repositories</p>
             <p style={{ fontSize: 14, opacity: 0.8 }}>
-              {(error as Error).message}
+              {error?.message}
             </p>
           </div>
         )}
@@ -180,7 +180,7 @@ export const Dashboard: React.FC = () => {
           </div>
         )}
 
-        {repos && repos.length === 0 && (
+        {repos?.length === 0 && (
           <div
             style={{
               border: `1px solid var(--border)`,

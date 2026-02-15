@@ -1,12 +1,14 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 
-type Theme = "light" | "dark";
+import { useTheme } from "./hooks/useTheme";
+
+// Define the Theme type
+export type Theme = "light" | "dark";
+
 const ThemeContext = createContext<{
   theme: Theme;
   setTheme: (t: Theme) => void;
 }>({ theme: "light", setTheme: () => {} });
-
-export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -14,7 +16,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<Theme>(() => {
     const stored = localStorage.getItem("theme");
     if (stored === "light" || stored === "dark") return stored;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
+    return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   });
@@ -25,8 +27,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  const contextValue = useMemo(() => ({ theme, setTheme }), [theme]);
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );
@@ -51,3 +55,5 @@ export function ThemeToggle() {
     </button>
   );
 }
+
+export { ThemeContext };

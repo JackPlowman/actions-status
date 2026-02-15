@@ -31,6 +31,7 @@ export interface Repo {
   };
   default_branch: string;
   html_url: string;
+  archived: boolean;
 }
 
 export const fetchWorkflowRuns = async (
