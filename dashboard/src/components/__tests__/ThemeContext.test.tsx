@@ -1,5 +1,5 @@
 import React from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { ThemeProvider, ThemeToggle } from "../../ThemeContext";
 import { useTheme } from "../../hooks/useTheme";

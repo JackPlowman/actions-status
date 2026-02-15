@@ -25,7 +25,7 @@ describe("RepoCard", () => {
       isLoading: true,
       data: undefined,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useRepoWorkflows>);
 
     const { container } = render(
       <RepoCard
@@ -45,7 +45,7 @@ describe("RepoCard", () => {
       isLoading: false,
       data: undefined,
       error: new Error("Failed"),
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useRepoWorkflows>);
 
     const { container } = render(
       <RepoCard
@@ -64,7 +64,7 @@ describe("RepoCard", () => {
       isLoading: false,
       data: [],
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useRepoWorkflows>);
 
     const { container } = render(
       <RepoCard
@@ -83,7 +83,7 @@ describe("RepoCard", () => {
       isLoading: false,
       data: mockWorkflows,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useRepoWorkflows>);
 
     render(
       <RepoCard
@@ -105,7 +105,7 @@ describe("RepoCard", () => {
       isLoading: false,
       data: mockWorkflows,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useRepoWorkflows>);
 
     render(
       <RepoCard

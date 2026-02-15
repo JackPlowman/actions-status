@@ -3,16 +3,22 @@ import { describe, expect, it, vi } from "vitest";
 
 import * as useGithubData from "../../hooks/useGithubData";
 import { Dashboard } from "../Dashboard";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 vi.mock("../../hooks/useGithubData");
 // Mock RepoCard to simplify Dashboard testing
 vi.mock("../RepoCard", () => ({
-  RepoCard: ({ repo, onStatusUpdate }: any) => {
+  RepoCard: ({
+    repo,
+    onStatusUpdate,
+  }: {
+    repo: string;
+    onStatusUpdate?: (status: string) => void;
+  }) => {
     // Simulate status update on mount
     React.useEffect(() => {
       if (onStatusUpdate) onStatusUpdate("success");
-    }, []);
+    }, [onStatusUpdate]);
     return <div data-testid="repo-card">{repo}</div>;
   },
 }));
@@ -44,7 +50,7 @@ describe("Dashboard", () => {
       data: undefined,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useUserRepos>);
 
     render(<Dashboard />);
     expect(screen.getByText("Repository Status")).toBeInTheDocument();
@@ -56,9 +62,9 @@ describe("Dashboard", () => {
       data: undefined,
       isLoading: true,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useUserRepos>);
 
-    const { container } = render(<Dashboard />);
+    render(<Dashboard />);
     // We expect 5 skeletons
     // They are divs with specific styles, hard to query by role.
     // But we replaced them with unique keys.
@@ -72,7 +78,7 @@ describe("Dashboard", () => {
       data: undefined,
       isLoading: false,
       error: new Error("Auth failed"),
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useUserRepos>);
 
     render(<Dashboard />);
     expect(screen.getByText("Unable to load repositories")).toBeInTheDocument();
@@ -84,7 +90,7 @@ describe("Dashboard", () => {
       data: mockRepos,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useUserRepos>);
 
     render(<Dashboard />);
     expect(screen.getByText("repo-a")).toBeInTheDocument();
@@ -109,7 +115,7 @@ describe("Dashboard", () => {
       data: reposWithArchived,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useUserRepos>);
 
     render(<Dashboard />);
     expect(screen.queryByText("repo-archived")).not.toBeInTheDocument();
@@ -141,7 +147,7 @@ describe("Dashboard", () => {
       data: repos,
       isLoading: false,
       error: null,
-    } as any);
+    } as unknown as ReturnType<typeof useGithubData.useUserRepos>);
 
     render(<Dashboard />);
     const cards = screen.getAllByTestId("repo-card");
