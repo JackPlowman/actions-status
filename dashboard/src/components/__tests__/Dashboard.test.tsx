@@ -1,7 +1,9 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
-import { Dashboard } from "../Dashboard";
+import React from "react";
+import { describe, expect, it, vi } from "vitest";
+
 import * as useGithubData from "../../hooks/useGithubData";
+import { Dashboard } from "../Dashboard";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 vi.mock("../../hooks/useGithubData");
 // Mock RepoCard to simplify Dashboard testing
@@ -9,13 +11,11 @@ vi.mock("../RepoCard", () => ({
   RepoCard: ({ repo, onStatusUpdate }: any) => {
     // Simulate status update on mount
     React.useEffect(() => {
-       if(onStatusUpdate) onStatusUpdate("success");
+      if (onStatusUpdate) onStatusUpdate("success");
     }, []);
     return <div data-testid="repo-card">{repo}</div>;
   },
 }));
-
-import React from "react";
 
 const mockRepos = [
   {
@@ -93,8 +93,8 @@ describe("Dashboard", () => {
 
   it("filters archived repos", () => {
     const reposWithArchived = [
-       ...mockRepos,
-       {
+      ...mockRepos,
+      {
         id: 3,
         name: "repo-archived",
         full_name: "owner/repo-archived",
@@ -102,29 +102,45 @@ describe("Dashboard", () => {
         default_branch: "main",
         html_url: "http://github.com/owner/repo-archived",
         archived: true,
-      }
+      },
     ];
 
     vi.spyOn(useGithubData, "useUserRepos").mockReturnValue({
-        data: reposWithArchived,
-        isLoading: false,
-        error: null,
-      } as any);
+      data: reposWithArchived,
+      isLoading: false,
+      error: null,
+    } as any);
 
-      render(<Dashboard />);
-      expect(screen.queryByText("repo-archived")).not.toBeInTheDocument();
-      expect(screen.getByText("repo-a")).toBeInTheDocument();
+    render(<Dashboard />);
+    expect(screen.queryByText("repo-archived")).not.toBeInTheDocument();
+    expect(screen.getByText("repo-a")).toBeInTheDocument();
   });
 
   it("sorts repos by name by default", () => {
     const repos = [
-      { id: 2, name: "z-repo", full_name: "o/z", owner: {login:"o"}, default_branch: "main", html_url: "", archived: false},
-      { id: 1, name: "a-repo", full_name: "o/a", owner: {login:"o"}, default_branch: "main", html_url: "", archived: false},
+      {
+        id: 2,
+        name: "z-repo",
+        full_name: "o/z",
+        owner: { login: "o" },
+        default_branch: "main",
+        html_url: "",
+        archived: false,
+      },
+      {
+        id: 1,
+        name: "a-repo",
+        full_name: "o/a",
+        owner: { login: "o" },
+        default_branch: "main",
+        html_url: "",
+        archived: false,
+      },
     ];
     vi.spyOn(useGithubData, "useUserRepos").mockReturnValue({
-        data: repos,
-        isLoading: false,
-        error: null
+      data: repos,
+      isLoading: false,
+      error: null,
     } as any);
 
     render(<Dashboard />);

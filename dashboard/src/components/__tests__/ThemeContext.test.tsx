@@ -1,8 +1,9 @@
-import { render, screen, act } from "@testing-library/react";
-import { describe, it, expect, vi, afterEach } from "vitest";
+import React from "react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+
 import { ThemeProvider, ThemeToggle } from "../../ThemeContext";
 import { useTheme } from "../../hooks/useTheme";
-import React from "react";
+import { act, render, screen } from "@testing-library/react";
 
 // Mock localStorage
 const localStorageMock = (() => {
@@ -17,25 +18,25 @@ const localStorageMock = (() => {
     },
     removeItem: (key: string) => {
       delete store[key];
-    }
+    },
   };
 })();
 
 Object.defineProperty(window, "localStorage", {
   value: localStorageMock,
-  writable: true
+  writable: true,
 });
 
 // Mock matchMedia
 const matchMediaMock = vi.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(), // deprecated
-    removeListener: vi.fn(), // deprecated
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: vi.fn(), // deprecated
+  removeListener: vi.fn(), // deprecated
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
 }));
 
 Object.defineProperty(window, "matchMedia", {
@@ -43,8 +44,8 @@ Object.defineProperty(window, "matchMedia", {
   value: matchMediaMock,
 });
 Object.defineProperty(global, "matchMedia", {
-    writable: true,
-    value: matchMediaMock,
+  writable: true,
+  value: matchMediaMock,
 });
 
 const TestComponent = () => {
@@ -59,13 +60,13 @@ const TestComponent = () => {
 };
 
 describe("ThemeContext", () => {
-    // Top-level afterEach handles cleanup now
+  // Top-level afterEach handles cleanup now
 
   it("provides default theme (light) if no storage or system pref", () => {
     render(
       <ThemeProvider>
         <TestComponent />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
     expect(screen.getByTestId("theme-val")).toHaveTextContent("light");
   });
@@ -75,7 +76,7 @@ describe("ThemeContext", () => {
     render(
       <ThemeProvider>
         <TestComponent />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
     expect(screen.getByTestId("theme-val")).toHaveTextContent("dark");
   });
@@ -84,11 +85,11 @@ describe("ThemeContext", () => {
     render(
       <ThemeProvider>
         <TestComponent />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
     const setDarkBtn = screen.getByText("Set Dark");
     act(() => {
-        setDarkBtn.click();
+      setDarkBtn.click();
     });
     expect(screen.getByTestId("theme-val")).toHaveTextContent("dark");
     expect(localStorage.getItem("theme")).toBe("dark");
@@ -96,30 +97,29 @@ describe("ThemeContext", () => {
 });
 
 describe("ThemeToggle", () => {
-    it("toggles theme on click", () => {
-        render(
-            <ThemeProvider>
-                <ThemeToggle />
-            </ThemeProvider>
-        );
-        const btn = screen.getByRole("button");
-        // Initial state light -> moon icon?
-        // Let's just check clicking it.
-        act(() => {
-            btn.click();
-        });
-        // We can't easily check the icon without more implementation detail,
-        // but we can check if it calls setTheme.
-        // Or check the title attribute if it updates.
-        // Let's rely on integration with ThemeProvider behavior or check the updated title.
-
-        // Assuming initial was light.
-        expect(btn).toHaveAttribute("title", "Switch to dark mode");
-        act(() => {
-             btn.click();
-        });
-        // Now it should be dark
-        expect(btn).toHaveAttribute("title", "Switch to light mode");
-
+  it("toggles theme on click", () => {
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>,
+    );
+    const btn = screen.getByRole("button");
+    // Initial state light -> moon icon?
+    // Let's just check clicking it.
+    act(() => {
+      btn.click();
     });
+    // We can't easily check the icon without more implementation detail,
+    // but we can check if it calls setTheme.
+    // Or check the title attribute if it updates.
+    // Let's rely on integration with ThemeProvider behavior or check the updated title.
+
+    // Assuming initial was light.
+    expect(btn).toHaveAttribute("title", "Switch to dark mode");
+    act(() => {
+      btn.click();
+    });
+    // Now it should be dark
+    expect(btn).toHaveAttribute("title", "Switch to light mode");
+  });
 });

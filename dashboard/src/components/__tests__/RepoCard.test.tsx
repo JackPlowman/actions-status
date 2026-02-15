@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
-import { RepoCard } from "../RepoCard";
+import { describe, expect, it, vi } from "vitest";
+
 import * as useGithubData from "../../hooks/useGithubData";
+import { RepoCard } from "../RepoCard";
+import { render, screen } from "@testing-library/react";
 
 vi.mock("../../hooks/useGithubData");
 
@@ -33,7 +34,7 @@ describe("RepoCard", () => {
         repo="repo"
         defaultBranch="main"
         htmlUrl="http://github.com/owner/repo"
-      />
+      />,
     );
     // Check for skeleton loader structure (e.g. opacity 0.5)
     expect(container.firstChild).toHaveStyle({ opacity: "0.5" });
@@ -53,7 +54,7 @@ describe("RepoCard", () => {
         repo="repo"
         defaultBranch="main"
         htmlUrl="http://github.com/owner/repo"
-      />
+      />,
     );
     expect(container).toBeEmptyDOMElement();
   });
@@ -72,7 +73,7 @@ describe("RepoCard", () => {
         repo="repo"
         defaultBranch="main"
         htmlUrl="http://github.com/owner/repo"
-      />
+      />,
     );
     expect(container).toBeEmptyDOMElement();
   });
@@ -91,7 +92,7 @@ describe("RepoCard", () => {
         repo="repo"
         defaultBranch="main"
         htmlUrl="http://github.com/owner/repo"
-      />
+      />,
     );
     expect(screen.getByText("repo")).toBeInTheDocument();
     // success status usually renders a green badge/dot
@@ -114,7 +115,7 @@ describe("RepoCard", () => {
         defaultBranch="main"
         htmlUrl="http://github.com/owner/repo"
         onStatusUpdate={onStatusUpdate}
-      />
+      />,
     );
 
     expect(onStatusUpdate).toHaveBeenCalledWith("success");
