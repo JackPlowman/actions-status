@@ -158,9 +158,7 @@ export const Dashboard: React.FC = () => {
             }}
           >
             <p style={{ fontWeight: 500 }}>Unable to load repositories</p>
-            <p style={{ fontSize: 14, opacity: 0.8 }}>
-              {error?.message}
-            </p>
+            <p style={{ fontSize: 14, opacity: 0.8 }}>{error?.message}</p>
           </div>
         )}
 
