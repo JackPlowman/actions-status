@@ -18,6 +18,11 @@ dev:
 build:
     npm run build
 
+# Preview the production build
+run:
+    just dashboard::build
+    npm run preview
+
 # Run unit tests
 unit-test:
     npm run test

@@ -1,4 +1,3 @@
-import React from "react";
 import { describe, expect, it, vi } from "vitest";
 
 import { ThemeProvider, ThemeToggle } from "../../ThemeContext";
@@ -22,7 +21,7 @@ const localStorageMock = (() => {
   };
 })();
 
-Object.defineProperty(window, "localStorage", {
+Object.defineProperty(globalThis, "localStorage", {
   value: localStorageMock,
   writable: true,
 });
@@ -39,11 +38,11 @@ const matchMediaMock = vi.fn().mockImplementation((query) => ({
   dispatchEvent: vi.fn(),
 }));
 
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(globalThis, "matchMedia", {
   writable: true,
   value: matchMediaMock,
 });
-Object.defineProperty(global, "matchMedia", {
+Object.defineProperty(globalThis, "matchMedia", {
   writable: true,
   value: matchMediaMock,
 });
