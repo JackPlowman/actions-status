@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, reopened, synchronize, ready_for_review]
   schedule:
     - cron: "0 0 * * *"
 
@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         language: [actions, typescript]
-    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@9b05cbf77da4cc8d3238499a28d179c41cbcf6ac # v2026.02.14.01
+    uses: JackPlowman/reusable-workflows/.github/workflows/codeql-analysis.yml@f82d61d53648ae90f8a0406c0f4bbf1aef332337 # v2026.10.25.01
     with:
       language: ${{ matrix.language }}
 
@@ -38,7 +38,7 @@ jobs:
       actions: read # Allow the workflow to read actions metadata
       pull-requests: write # Allow the workflow to create and modify pull request comments
       security-events: write # Allow the workflow to upload analysis results
-    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@9b05cbf77da4cc8d3238499a28d179c41cbcf6ac # v2026.02.14.01
+    uses: JackPlowman/reusable-workflows/.github/workflows/common-code-checks.yml@f82d61d53648ae90f8a0406c0f4bbf1aef332337 # v2026.10.25.01
     secrets:
       workflow_github_token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -49,19 +49,19 @@ jobs:
       security-events: write # Allow the workflow to upload analysis results
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Setup Dashboard Dependencies
-        uses: ./.github/actions/setup-dashboard-dependencies
+        uses: ./.github/actions/setup-dashboard-dependencies # zizmor: ignore[self-repository] actionlint does not yet support $/
       - name: Run ESLint
         env:
           SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
         run: just dashboard::eslint-with-sarif
         continue-on-error: true
       - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@9e907b5e64f6b83e7804b09294d44122997950d6 # v4.32.3
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:
           sarif_file: dashboard/eslint-results.sarif
           wait-for-processing: true
@@ -73,12 +73,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Setup Dashboard Dependencies
-        uses: ./.github/actions/setup-dashboard-dependencies
+        uses: ./.github/actions/setup-dashboard-dependencies # zizmor: ignore[self-repository] actionlint does not yet support $/
       - name: Run Prettier
         run: just dashboard::prettier-check
 
@@ -87,11 +87,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Setup Dashboard Dependencies
-        uses: ./.github/actions/setup-dashboard-dependencies
-      - name: Run Prettier
+        uses: ./.github/actions/setup-dashboard-dependencies # zizmor: ignore[self-repository] actionlint does not yet support $/
+      - name: Run Unit Tests
         run: just dashboard::unit-test
+      - name: Build Dashboard
+        run: just dashboard::build
