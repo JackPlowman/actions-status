@@ -1,6 +1,9 @@
 # Actions Status
 
-![Development](https://img.shields.io/badge/Development-8A2BE2?style=for-the-badge&color=ff9500&label=Status)
+![Terminated](https://img.shields.io/badge/Terminated-8A2BE2?style=for-the-badge&color=ff0000&label=Status)
+
+> [!WARNING]
+> This project has been halted and terminated mid development and is no longer maintained.
 
 A dashboard to monitor the status of all GitHub Actions which have run on the default (main/master) branch of your repositories. This tool provides a centralized view of your repositories' CI/CD workflows, making it easier to track and debug issues.
 
